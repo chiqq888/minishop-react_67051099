@@ -1,16 +1,22 @@
+import Header from './components/Header' 
+import ProductCard from './components/ProductCard' 
+
 function App() { 
   return ( 
-    <div className="min-h-screen bg-gray-100 p-10"> 
-      <h1 className="text-4xl font-bold text-blue-600"> 
-        MiniShop 
-      </h1> 
-      <p className="mt-4 text-gray-600"> 
-        My First React Application 
-      </p> 
-      <button className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg"> 
-        Shop Now 
-      </button> 
+    <div className="min-h-screen bg-gray-100"> 
+      <Header /> 
+      <main className="max-w-7xl mx-auto p-10"> 
+        <h2 className="text-3xl font-bold mb-6"> 
+          Products 
+        </h2> 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
+          <ProductCard name="Laptop" price="12900" icon="💻" /> 
+          <ProductCard name="Headphones" price="1290" icon="🎧" /> 
+          <ProductCard name="Backpack" price="890" icon="🎒" />
+        </div> 
+      </main> 
     </div> 
   ) 
 } 
+
 export default App
