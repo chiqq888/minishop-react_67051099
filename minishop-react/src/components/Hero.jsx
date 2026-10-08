@@ -101,13 +101,16 @@ function Hero() {
       >
         <span
           data-ui="hero-label"
-          className="inline-flex items-center gap-[9px] text-[11px] tracking-[2px]"
+          className="inline-flex min-h-5 items-center gap-[9px] text-[11px] tracking-[2px]"
         >
           <span
             data-ui="status-dot"
-            className="size-1.5 rounded-full bg-[#202020]"
-          />{" "}
-          THE EVERYDAY COLLECTION
+            className="size-1.5 shrink-0 rounded-full bg-[#202020]"
+            aria-hidden="true"
+          />
+          <span className="inline-block translate-y-0.5 leading-none">
+            THE EVERYDAY COLLECTION
+          </span>
         </span>
         <h2 id="hero-title">
           เรียบง่าย.
@@ -131,9 +134,12 @@ function Hero() {
         </a>
         <div
           data-ui="hero-note"
-          className="mt-[25px] flex items-center gap-2 text-[11px] text-[#6b6b6b] min-[541px]:text-xs [&_.icon]:size-[18px]"
+          className="mt-[25px] flex min-h-5 items-center gap-2 text-[11px] text-[#6b6b6b] min-[541px]:text-xs [&_.icon]:size-[18px]"
         >
-          <Icon name="medal" /> คัดสรรสิ่งเล็ก ๆ ที่ทำให้วันของคุณดีขึ้น
+          <Icon name="medal" />
+          <span className="min-w-0 translate-y-0.5 leading-[1.5]">
+            คัดสรรสิ่งเล็ก ๆ ที่ทำให้วันของคุณดีขึ้น
+          </span>
         </div>
       </div>
       <div

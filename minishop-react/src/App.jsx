@@ -282,18 +282,34 @@ function App() {
               </div>
               <label
                 data-ui="sort-field"
-                className="flex items-center justify-between gap-2.5 text-sm whitespace-nowrap text-[#777] [&_select]:min-w-0 [&_select]:flex-1 [&_select]:rounded-shop [&_select]:border [&_select]:border-[#dedede] [&_select]:bg-white [&_select]:py-[13px] [&_select]:pr-[34px] [&_select]:pl-[15px] [&_select]:text-sm [&_select]:text-[#303030] min-[801px]:[&_select]:max-w-[255px]"
+                className="flex items-center justify-between gap-2.5 text-sm whitespace-nowrap text-[#777]"
               >
                 <span>เรียงตาม</span>
-                <select
-                  aria-label="เรียงราคาสินค้า"
-                  value={sort}
-                  onChange={(event) => setSort(event.target.value)}
-                >
-                  <option value="default">แนะนำสำหรับคุณ</option>
-                  <option value="asc">Sort Price Low → High</option>
-                  <option value="desc">Sort Price High → Low</option>
-                </select>
+                <span className="relative min-w-0 flex-1 min-[801px]:w-[245px] min-[801px]:flex-none">
+                  <select
+                    className="w-full min-w-0 appearance-none rounded-shop border border-[#dedede] bg-white py-[13px] pr-11 pl-[15px] text-sm text-[#303030]"
+                    aria-label="เรียงราคาสินค้า"
+                    value={sort}
+                    onChange={(event) => setSort(event.target.value)}
+                  >
+                    <option value="default">แนะนำสำหรับคุณ</option>
+                    <option value="asc">Sort Price Low → High</option>
+                    <option value="desc">Sort Price High → Low</option>
+                  </select>
+                  <svg
+                    data-ui="sort-chevron"
+                    className="pointer-events-none absolute top-1/2 right-4 size-3.5 -translate-y-1/2 text-[#303030]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </span>
               </label>
             </div>
             <div
@@ -306,16 +322,24 @@ function App() {
                 <button
                   key={item}
                   data-ui="category-button"
-                  className={`flex items-center gap-2 rounded-shop border px-[11px] py-2 text-xs min-[541px]:gap-3 min-[541px]:px-3.5 min-[541px]:text-sm [&_span]:text-[11px] ${category === item ? "border-[#242424] bg-[#242424] text-white [&_span]:text-[#bfbfbf]" : "border-[#e0e0e0] bg-white text-[#696969] hover:bg-[#f4f4f4] [&_span]:text-[#929292]"}`}
+                  className={`group flex items-center gap-2 rounded-shop border px-[11px] py-2 text-xs min-[541px]:gap-3 min-[541px]:px-3.5 min-[541px]:text-sm ${category === item ? "border-[#242424] bg-[#242424] text-white" : "border-[#e0e0e0] bg-white text-[#696969] hover:bg-[#f4f4f4]"}`}
                   aria-pressed={category === item}
                   onClick={() => setCategory(item)}
                 >
-                  {item === "All" ? "All · ทั้งหมด" : item}
-                  <span>
-                    {item === "All"
-                      ? products.length
-                      : products.filter((product) => product.category === item)
-                          .length}
+                  <span className="leading-none">
+                    {item === "All" ? "All · ทั้งหมด" : item}
+                  </span>
+                  <span
+                    data-ui="category-count"
+                    className="inline-flex h-5 min-w-5 shrink-0 items-center justify-center text-[11px] leading-none tabular-nums text-[#929292] group-aria-pressed:text-[#bfbfbf]"
+                  >
+                    <span className="inline-block translate-y-0.5">
+                      {item === "All"
+                        ? products.length
+                        : products.filter(
+                            (product) => product.category === item,
+                          ).length}
+                    </span>
                   </span>
                 </button>
               ))}
@@ -402,12 +426,6 @@ function App() {
                 onViewDetail={setSelectedProduct}
               />
             ))}
-          <p
-            data-ui="catalog-note"
-            className="mt-[22px] text-[11px] leading-[1.8] text-[#808080]"
-          >
-            ราคาสินค้าแสดงเป็น USD ตามข้อมูลจาก Fake Store API
-          </p>
         </section>
         <footer
           data-ui="footer"
@@ -492,9 +510,6 @@ function App() {
               >
                 {selectedProduct.description}
               </p>
-              <p data-ui="muted" className="text-sm text-[#767676]">
-                แหล่งข้อมูล: Fake Store API
-              </p>
               <button
                 data-ui="button"
                 className="inline-flex min-h-[46px] items-center justify-center gap-3 rounded-shop px-[18px] py-2.5 font-medium transition-colors duration-200 motion-reduce:transition-none border border-[#242424] bg-[#242424] text-white hover:bg-[#454545] [&_.icon]:brightness-0 [&_.icon]:invert w-full"
@@ -504,6 +519,12 @@ function App() {
               </button>
             </div>
           </div>
+          <p
+            data-ui="product-disclaimer"
+            className="mt-6 border-t border-[#e4e4e4] pt-4 text-[11px] leading-[1.8] text-[#808080]"
+          >
+            ข้อมูล และราคาไม่ใช่ของจริง เป็นข้อมูลจาก Fake Store API
+          </p>
         </Modal>
       )}
       {cartOpen && (
