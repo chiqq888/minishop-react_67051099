@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Thai Looped", sans-serif;
+  --radius-shop: 15px;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth motion-reduce:scroll-auto;
+  }
+  body {
+    @apply min-w-[320px] bg-[#f7f7f7] font-sans text-base leading-[1.6] text-[#202020] antialiased;
+  }
+  button,
+  a {
+    @apply touch-manipulation;
+  }
+  button {
+    @apply cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-[#202020];
+  }
+}
