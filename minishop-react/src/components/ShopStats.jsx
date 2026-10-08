@@ -9,7 +9,7 @@ function StatCard({ icon, label, value, unit, onClick }) {
       <div>
         <p className="text-[11px] text-[#737373] sm:text-[13px]">{label}</p>
         <strong className="text-2xl leading-[1.3] font-medium sm:text-[26px]">
-          {String(value).padStart(2, "0")}{" "}
+          {value}{" "}
           <span className="block text-[10px] font-normal text-[#838383] sm:ml-[5px] sm:inline sm:text-xs">
             {unit}
           </span>

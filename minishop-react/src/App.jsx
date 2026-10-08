@@ -7,7 +7,6 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
 import Toast from "./components/Toast";
-import fetchProducts from "./data/fetchProducts";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -20,27 +19,29 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [notice, setNotice] = useState("");
 
-  // โหลดข้อมูลเหมือน fetchWeather() โดยยังยกเลิกงานเมื่อออกจากหน้าได้
   useEffect(() => {
     const controller = new AbortController();
     let active = true;
-    const timeout = setTimeout(() => controller.abort(), 15000);
 
     async function loadProducts() {
       try {
-        const data = await fetchProducts(controller.signal);
+        const response = await fetch("https://fakestoreapi.com/products", {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error("ไม่สามารถโหลดข้อมูลได้");
+
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error("ข้อมูลสินค้าไม่ถูกต้อง");
         if (active) setProducts(data);
       } catch {
         if (active) setError("ไม่สามารถโหลดข้อมูลได้");
       } finally {
-        clearTimeout(timeout);
         if (active) setLoading(false);
       }
     }
     loadProducts();
     return () => {
       active = false;
-      clearTimeout(timeout);
       controller.abort();
     };
   }, [reload]);
@@ -70,7 +71,6 @@ function App() {
     setNotice("");
   }
 
-  // ถ้ามีสินค้าแล้ว เพิ่มจำนวน ถ้ายังไม่มี เพิ่มรายการใหม่
   function addToCart(product) {
     setCart(function (items) {
       const exists = items.some((item) => item.id === product.id);

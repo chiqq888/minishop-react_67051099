@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Icon from "./Icon";
-import Button from "./Button";
-import EmptyState from "./EmptyState";
 import ProductList from "./ProductList";
 
 function ProductCatalog({
@@ -54,13 +52,28 @@ function ProductCatalog({
     if (loading || error) return null;
     if (filteredProducts.length === 0) {
       return (
-        <EmptyState
-          icon="search"
-          title="ไม่พบสินค้าที่ค้นหา"
-          description="ลองใช้คำค้นอื่น หรือเลือกหมวดหมู่ทั้งหมด"
-          buttonText="ดูสินค้าทั้งหมด"
-          onClick={resetFilters}
-        />
+        <div className="rounded-shop border border-dashed border-[#cfcfcf] bg-white px-5 py-[65px] text-center">
+          <Icon
+            name="search"
+            className="mx-auto mb-[15px] size-[45px] opacity-50"
+          />
+          <h3 className="text-xl font-medium">ไม่พบสินค้าที่ค้นหา</h3>
+          <p className="mt-[7px] mb-[22px] text-sm text-shop-muted">
+            ลองใช้คำค้นอื่น หรือเลือกหมวดหมู่ทั้งหมด
+          </p>
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="
+              inline-flex min-h-[46px] items-center justify-center gap-3
+              rounded-shop border border-shop-ink bg-shop-ink px-[18px] py-2.5
+              font-medium text-white transition-colors duration-200
+              hover:bg-[#454545] motion-reduce:transition-none
+            "
+          >
+            ดูสินค้าทั้งหมด
+          </button>
+        </div>
       );
     }
     return (
@@ -98,7 +111,6 @@ function ProductCatalog({
         </p>
       </div>
 
-      {/* ค้นหา เรียงราคา และเลือกหมวดหมู่ */}
       <div className="rounded-shop border border-[#e3e3e3] bg-white p-4 sm:p-[22px]">
         <div className="flex flex-col gap-3.5 md:flex-row md:gap-[18px]">
           <div className="flex min-w-0 flex-1 items-center gap-2 rounded-shop border border-shop-border bg-[#fafafa] px-2.5 sm:gap-3 sm:px-[15px]">
@@ -193,13 +205,19 @@ function ProductCatalog({
               โหลดสินค้าจาก Fake Store API ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง
             </p>
           </div>
-          <Button
-            outlined
-            className="w-full text-[13px] whitespace-nowrap sm:ml-auto sm:w-auto"
+          <button
+            type="button"
             onClick={onRetry}
+            className="
+              inline-flex min-h-[46px] w-full items-center justify-center gap-3
+              rounded-shop border border-[#d4d4d4] bg-white px-[18px] py-2.5
+              text-[13px] font-medium whitespace-nowrap text-shop-ink
+              transition-colors duration-200 hover:bg-[#f0f0f0]
+              motion-reduce:transition-none sm:ml-auto sm:w-auto
+            "
           >
             ลองใหม่
-          </Button>
+          </button>
         </div>
       )}
       <div className="flex min-h-[66px] items-center justify-between text-[13px] text-shop-muted">

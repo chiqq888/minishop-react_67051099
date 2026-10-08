@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "./Icon";
 import laptop from "../assets/hero-laptop-cutout.png";
 import headphones from "../assets/hero-headphones-cutout.png";
@@ -35,16 +35,6 @@ const slides = [
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isTouching, setIsTouching] = useState(false);
-  const [hasFocus, setHasFocus] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
-  const [documentVisible, setDocumentVisible] = useState(
-    () => !document.hidden,
-  );
-  const touchStart = useRef(null);
   const current = slides[currentSlide];
   const slidePositions = [
     "translate-x-0",
@@ -52,37 +42,13 @@ function Hero() {
     "-translate-x-[200%]",
     "-translate-x-[300%]",
   ];
-  const autoSliding =
-    isPlaying &&
-    !isHovered &&
-    !isTouching &&
-    !hasFocus &&
-    !reducedMotion &&
-    documentVisible;
-
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    function updateMotion(event) {
-      setReducedMotion(event.matches);
-    }
-    function updateVisibility() {
-      setDocumentVisible(!document.hidden);
-    }
-    media.addEventListener("change", updateMotion);
-    document.addEventListener("visibilitychange", updateVisibility);
-    return () => {
-      media.removeEventListener("change", updateMotion);
-      document.removeEventListener("visibilitychange", updateVisibility);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!autoSliding) return;
-    const timer = setTimeout(() => {
+    if (!isPlaying) return;
+    const timer = setInterval(() => {
       setCurrentSlide((index) => (index + 1) % slides.length);
     }, 5000);
-    return () => clearTimeout(timer);
-  }, [autoSliding, currentSlide]);
+    return () => clearInterval(timer);
+  }, [isPlaying]);
 
   function getDotClass(index) {
     if (index === currentSlide) return "w-[17px] rounded-[5px] bg-shop-ink";
@@ -145,17 +111,6 @@ function Hero() {
         aria-roledescription="carousel"
         aria-label="ภาพไลฟ์สไตล์ MiniShop"
         tabIndex={0}
-        onPointerEnter={(event) => {
-          if (event.pointerType === "mouse") setIsHovered(true);
-        }}
-        onPointerLeave={(event) => {
-          if (event.pointerType === "mouse") setIsHovered(false);
-        }}
-        onFocusCapture={() => setHasFocus(true)}
-        onBlurCapture={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget))
-            setHasFocus(false);
-        }}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
             event.preventDefault();
@@ -163,26 +118,7 @@ function Hero() {
           }
         }}
       >
-        <div
-          className="w-full min-w-0 touch-pan-y overflow-hidden"
-          onTouchStart={(event) => {
-            setIsTouching(true);
-            touchStart.current = event.touches[0].clientX;
-          }}
-          onTouchEnd={(event) => {
-            setIsTouching(false);
-            if (touchStart.current !== null) {
-              const delta =
-                event.changedTouches[0].clientX - touchStart.current;
-              if (Math.abs(delta) > 45) moveSlide(delta < 0 ? 1 : -1);
-              touchStart.current = null;
-            }
-          }}
-          onTouchCancel={() => {
-            setIsTouching(false);
-            touchStart.current = null;
-          }}
-        >
+        <div className="w-full min-w-0 overflow-hidden">
           <div
             className={`flex w-full transition-transform duration-[450ms] ease-in-out motion-reduce:transition-none ${slidePositions[currentSlide]}`}
           >
@@ -204,7 +140,7 @@ function Hero() {
         </div>
         <div className="absolute right-6 bottom-[76px] left-6 flex justify-between gap-2.5 text-[10px] tracking-[1px] text-shop-muted sm:right-[15px] sm:left-[15px] md:right-7 md:left-7">
           <span>
-            {String(currentSlide + 1).padStart(2, "0")} / {current.caption}
+            {currentSlide + 1} / {current.caption}
           </span>
           <span>{current.name}</span>
         </div>
@@ -254,7 +190,7 @@ function Hero() {
         <span
           className="sr-only"
           role="status"
-          aria-live={autoSliding ? "off" : "polite"}
+          aria-live={isPlaying ? "off" : "polite"}
         >
           ภาพ {currentSlide + 1} จาก {slides.length}: {current.name}
         </span>
