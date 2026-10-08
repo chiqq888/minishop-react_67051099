@@ -84,6 +84,11 @@ function Hero() {
     return () => clearTimeout(timer);
   }, [autoSliding, currentSlide]);
 
+  function getDotClass(index) {
+    if (index === currentSlide) return "w-[17px] rounded-[5px] bg-shop-ink";
+    return "w-[7px] rounded-full bg-[#bdbdbd]";
+  }
+
   function moveSlide(direction) {
     setCurrentSlide(
       (index) => (index + direction + slides.length) % slides.length,
@@ -91,20 +96,12 @@ function Hero() {
   }
   return (
     <section
-      data-ui="hero"
-      className="grid grid-cols-1 overflow-hidden rounded-shop border border-[#e0e0e0] bg-[#ebebeb] min-[541px]:grid-cols-2"
+      className="grid grid-cols-1 overflow-hidden rounded-shop border border-[#e0e0e0] bg-[#ebebeb] sm:grid-cols-2"
       aria-labelledby="hero-title"
     >
-      <div
-        data-ui="hero-copy"
-        className="p-7 min-[801px]:p-8 min-[1101px]:pt-[43px] min-[1101px]:pr-12 min-[1101px]:pb-[34px] min-[1101px]:pl-12 [&_h2]:mt-[21px] [&_h2]:mb-4 [&_h2]:text-[43px] [&_h2]:leading-[1.25] [&_h2]:font-semibold [&_h2]:tracking-[-2px] min-[541px]:[&_h2]:text-[38px] min-[801px]:[&_h2]:text-[clamp(36px,4vw,58px)] [&>p]:leading-[1.8] [&>p]:text-[#656565] [&>a]:mt-6 [&>a]:min-w-[170px] [&>a]:justify-between [&>a_span]:text-[22px]"
-      >
-        <span
-          data-ui="hero-label"
-          className="inline-flex min-h-5 items-center gap-[9px] text-[11px] tracking-[2px]"
-        >
+      <div className="p-7 md:p-8 lg:pt-[43px] lg:pr-12 lg:pb-[34px] lg:pl-12">
+        <span className="inline-flex min-h-5 items-center gap-[9px] text-[11px] tracking-[2px]">
           <span
-            data-ui="status-dot"
             className="size-1.5 shrink-0 rounded-full bg-[#202020]"
             aria-hidden="true"
           />
@@ -112,39 +109,38 @@ function Hero() {
             THE EVERYDAY COLLECTION
           </span>
         </span>
-        <h2 id="hero-title">
+        <h2
+          id="hero-title"
+          className="mt-[21px] mb-4 text-[43px] leading-[1.25] font-semibold tracking-[-2px] sm:text-[38px] md:text-[clamp(36px,4vw,58px)]"
+        >
           เรียบง่าย.
           <br />
           แต่ครบทุกวัน
-          <span data-ui="hero-period" className="text-[#858585]">
-            .
-          </span>
+          <span className="text-[#858585]">.</span>
         </h2>
-        <p>
+        <p className="leading-[1.8] text-[#656565]">
           เทคโนโลยี ไลฟ์สไตล์ และของใช้ที่คุณชอบ
           <br />
           เลือกดูได้ในที่เดียว กับ MiniShop
         </p>
         <a
-          data-ui="button"
-          className="inline-flex min-h-[46px] items-center justify-center gap-3 rounded-shop px-[18px] py-2.5 font-medium transition-colors duration-200 motion-reduce:transition-none border border-[#242424] bg-[#242424] text-white hover:bg-[#454545] [&_.icon]:brightness-0 [&_.icon]:invert"
+          className="mt-6 inline-flex min-h-[46px] min-w-[170px] items-center justify-between gap-3 rounded-shop border border-shop-ink bg-shop-ink px-[18px] py-2.5 font-medium text-white transition-colors duration-200 hover:bg-[#454545] motion-reduce:transition-none"
           href="#catalog"
         >
-          เลือกดูสินค้า <span aria-hidden="true">↗</span>
+          เลือกดูสินค้า{" "}
+          <span className="text-[22px]" aria-hidden="true">
+            ↗
+          </span>
         </a>
-        <div
-          data-ui="hero-note"
-          className="mt-[25px] flex min-h-5 items-center gap-2 text-[11px] text-[#6b6b6b] min-[541px]:text-xs [&_.icon]:size-[18px]"
-        >
-          <Icon name="medal" />
+        <div className="mt-[25px] flex min-h-5 items-center gap-2 text-[11px] text-[#6b6b6b] sm:text-xs">
+          <Icon name="medal" className="size-[18px]" />
           <span className="min-w-0 translate-y-0.5 leading-[1.5]">
             คัดสรรสิ่งเล็ก ๆ ที่ทำให้วันของคุณดีขึ้น
           </span>
         </div>
       </div>
       <div
-        data-ui="hero-visual"
-        className="relative flex min-w-0 items-center justify-center bg-[#f3f3f3] px-[25px] pt-2.5 pb-[95px] min-[541px]:pt-6"
+        className="relative flex min-w-0 items-center justify-center bg-shop-surface px-[25px] pt-2.5 pb-[95px] sm:pt-6"
         role="region"
         aria-roledescription="carousel"
         aria-label="ภาพไลฟ์สไตล์ MiniShop"
@@ -168,7 +164,6 @@ function Hero() {
         }}
       >
         <div
-          data-ui="hero-slide-window"
           className="w-full min-w-0 touch-pan-y overflow-hidden"
           onTouchStart={(event) => {
             setIsTouching(true);
@@ -189,17 +184,16 @@ function Hero() {
           }}
         >
           <div
-            data-ui="hero-slide-track"
             className={`flex w-full transition-transform duration-[450ms] ease-in-out motion-reduce:transition-none ${slidePositions[currentSlide]}`}
           >
             {slides.map((slide, index) => (
               <div
-                data-ui="hero-slide"
-                className="grid h-60 min-w-0 flex-[0_0_100%] grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)] place-items-center min-[541px]:h-[300px] min-[801px]:h-[330px] min-[1101px]:h-[355px] min-[1600px]:h-[390px] [&_img]:h-full [&_img]:min-h-0 [&_img]:w-full [&_img]:min-w-0 [&_img]:object-contain [&_img]:select-none"
+                className="grid h-60 min-w-0 flex-[0_0_100%] grid-cols-[minmax(0,1fr)] grid-rows-[minmax(0,1fr)] place-items-center sm:h-[300px] md:h-[330px] lg:h-[355px] xl:h-[390px]"
                 key={slide.name}
                 aria-hidden={index !== currentSlide}
               >
                 <img
+                  className="h-full min-h-0 w-full min-w-0 object-contain select-none"
                   src={slide.image}
                   alt={index === currentSlide ? slide.alt : ""}
                   draggable={false}
@@ -208,40 +202,31 @@ function Hero() {
             ))}
           </div>
         </div>
-        <div
-          data-ui="hero-caption"
-          className="absolute right-6 bottom-[76px] left-6 flex justify-between gap-2.5 text-[10px] tracking-[1px] text-[#767676] min-[541px]:right-[15px] min-[541px]:left-[15px] min-[801px]:right-7 min-[801px]:left-7"
-        >
+        <div className="absolute right-6 bottom-[76px] left-6 flex justify-between gap-2.5 text-[10px] tracking-[1px] text-shop-muted sm:right-[15px] sm:left-[15px] md:right-7 md:left-7">
           <span>
             {String(currentSlide + 1).padStart(2, "0")} / {current.caption}
           </span>
           <span>{current.name}</span>
         </div>
-        <div
-          data-ui="carousel-controls"
-          className="absolute right-6 bottom-5 left-6 flex items-center justify-between gap-3 min-[541px]:right-7 min-[541px]:left-7"
-        >
-          <div
-            data-ui="carousel-dots"
-            className="flex gap-1"
-            role="group"
-            aria-label="เลือกภาพ Hero"
-          >
+        <div className="absolute right-6 bottom-5 left-6 flex items-center justify-between gap-3 sm:right-7 sm:left-7">
+          <div className="flex gap-1" role="group" aria-label="เลือกภาพ Hero">
             {slides.map((slide, index) => (
               <button
                 key={slide.name}
-                data-ui="carousel-dot"
-                className={`relative h-10 w-6 rounded-shop bg-transparent after:absolute after:top-1/2 after:left-1/2 after:h-[7px] after:-translate-x-1/2 after:-translate-y-1/2 after:transition-[width,background-color] after:duration-200 motion-reduce:after:transition-none ${index === currentSlide ? "after:w-[17px] after:rounded-[5px] after:bg-[#242424]" : "after:w-[7px] after:rounded-full after:bg-[#bdbdbd]"}`}
+                className="grid h-10 w-6 place-items-center rounded-shop"
                 aria-label={`แสดงภาพ ${slide.name}`}
                 aria-pressed={index === currentSlide}
                 onClick={() => setCurrentSlide(index)}
-              />
+              >
+                <span
+                  className={`h-[7px] transition-[width,background-color] duration-200 motion-reduce:transition-none ${getDotClass(index)}`}
+                />
+              </button>
             ))}
           </div>
-          <div data-ui="carousel-arrows" className="flex gap-2">
+          <div className="flex gap-2">
             <button
-              data-ui="carousel-autoplay"
-              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-sm hover:border-[#242424] hover:bg-[#242424] hover:text-white"
+              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-sm hover:border-shop-ink hover:bg-shop-ink hover:text-white"
               aria-label={
                 isPlaying ? "หยุดสไลด์อัตโนมัติ" : "เปิดสไลด์อัตโนมัติ"
               }
@@ -251,16 +236,14 @@ function Hero() {
               <span aria-hidden="true">{isPlaying ? "Ⅱ" : "▶"}</span>
             </button>
             <button
-              data-ui="carousel-button"
-              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-xl hover:border-[#242424] hover:bg-[#242424] hover:text-white"
+              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-xl hover:border-shop-ink hover:bg-shop-ink hover:text-white"
               aria-label="ภาพก่อนหน้า"
               onClick={() => moveSlide(-1)}
             >
               ←
             </button>
             <button
-              data-ui="carousel-button"
-              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-xl hover:border-[#242424] hover:bg-[#242424] hover:text-white"
+              className="grid size-10 place-items-center rounded-shop border border-[#d5d5d5] bg-white text-xl hover:border-shop-ink hover:bg-shop-ink hover:text-white"
               aria-label="ภาพถัดไป"
               onClick={() => moveSlide(1)}
             >
@@ -269,7 +252,6 @@ function Hero() {
           </div>
         </div>
         <span
-          data-ui="sr-only"
           className="sr-only"
           role="status"
           aria-live={autoSliding ? "off" : "polite"}

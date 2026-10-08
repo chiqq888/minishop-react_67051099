@@ -2,10 +2,7 @@ import ProductCard from "./ProductCard";
 
 function ProductList({ products, onAddToCart, onViewDetail }) {
   return (
-    <div
-      data-ui="product-grid"
-      className="grid grid-cols-2 gap-3 min-[541px]:gap-5 min-[801px]:grid-cols-3 min-[1101px]:grid-cols-4 max-[360px]:grid-cols-1"
-    >
+    <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 max-xs:grid-cols-1">
       {products.map((product) => (
         <ProductCard
           key={product.id}

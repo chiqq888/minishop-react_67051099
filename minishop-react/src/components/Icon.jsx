@@ -23,10 +23,12 @@ const icons = {
   user,
   avatar,
 };
-function Icon({ name, className = "" }) {
+function Icon({ name, className = "size-[22px]", white = false }) {
+  let color = "brightness-[.45]";
+  if (white) color = "brightness-0 invert";
   return (
     <img
-      className={`icon size-[22px] shrink-0 grayscale brightness-[.45] ${className}`}
+      className={`shrink-0 grayscale ${color} ${className}`}
       src={icons[name] || box}
       alt=""
       aria-hidden="true"

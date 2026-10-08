@@ -3,6 +3,18 @@
 @theme {
   --font-sans: "IBM Plex Sans Thai Looped", sans-serif;
   --radius-shop: 15px;
+  --color-shop-ink: #242424;
+  --color-shop-muted: #767676;
+  --color-shop-border: #dedede;
+  --color-shop-bg: #f7f7f7;
+  --color-shop-surface: #f3f3f3;
+
+  /* Short names for the existing responsive sizes. */
+  --breakpoint-xs: 361px;
+  --breakpoint-sm: 541px;
+  --breakpoint-md: 801px;
+  --breakpoint-lg: 1101px;
+  --breakpoint-xl: 1600px;
 }
 
 @layer base {
@@ -10,7 +22,7 @@
     @apply scroll-smooth motion-reduce:scroll-auto;
   }
   body {
-    @apply min-w-[320px] bg-[#f7f7f7] font-sans text-base leading-[1.6] text-[#202020] antialiased;
+    @apply min-w-[320px] bg-shop-bg font-sans text-base leading-[1.6] text-[#202020] antialiased;
   }
   button,
   a {
