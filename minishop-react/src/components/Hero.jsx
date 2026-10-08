@@ -90,13 +90,10 @@ function Hero() {
           เลือกดูได้ในที่เดียว กับ MiniShop
         </p>
         <a
-          className="mt-6 inline-flex min-h-[46px] min-w-[170px] items-center justify-between gap-3 rounded-shop border border-shop-ink bg-shop-ink px-[18px] py-2.5 font-medium text-white transition-colors duration-200 hover:bg-[#454545] motion-reduce:transition-none"
+          className="mt-6 inline-flex min-h-[46px] min-w-[170px] items-center justify-center rounded-shop border border-shop-ink bg-shop-ink px-[18px] py-2.5 font-medium text-white transition-colors duration-200 hover:bg-[#454545] motion-reduce:transition-none"
           href="#catalog"
         >
-          เลือกดูสินค้า{" "}
-          <span className="text-[22px]" aria-hidden="true">
-            ↗
-          </span>
+          เลือกดูสินค้า
         </a>
         <div className="mt-[25px] flex min-h-5 items-center gap-2 text-[11px] text-[#6b6b6b] sm:text-xs">
           <Icon name="medal" className="size-[18px]" />

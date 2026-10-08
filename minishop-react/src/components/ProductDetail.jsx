@@ -12,14 +12,13 @@ function ProductDetail({ product, onClose, onAddToCart }) {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-[30px]">
         <div
           className="
-            grid h-60 min-h-[220px] place-items-center rounded-shop
-            bg-shop-surface p-[30px] sm:h-auto sm:min-h-[300px]
+            flex h-60 min-w-0 items-center justify-center overflow-hidden rounded-shop
+            bg-shop-surface p-[30px] sm:h-[350px]
           "
         >
           <ProductImage
             image={product.image}
             name={product.title}
-            className="max-h-[350px]"
           />
         </div>
 

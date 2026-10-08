@@ -103,7 +103,7 @@ function ProductCard({
             bg-transparent pt-3 text-[11px] text-[#727272]
           "
         >
-          View Detail <span aria-hidden="true">↗</span>
+          View Detail
         </button>
       </div>
     </article>

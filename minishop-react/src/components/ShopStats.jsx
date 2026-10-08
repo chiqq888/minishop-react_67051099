@@ -15,9 +15,6 @@ function StatCard({ icon, label, value, unit, onClick }) {
           </span>
         </strong>
       </div>
-      <span className="ml-auto hidden text-[#999] md:inline" aria-hidden="true">
-        ↗
-      </span>
     </>
   );
   const classes =

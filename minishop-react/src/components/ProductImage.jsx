@@ -7,7 +7,7 @@ function ProductImage({ image, name, icon, className = "" }) {
   if (image && failedImage !== image) {
     return (
       <img
-        className={`h-full w-full object-contain mix-blend-multiply ${className}`}
+        className={`h-full max-h-full min-h-0 w-full max-w-full object-contain mix-blend-multiply ${className}`}
         src={image}
         alt={name}
         loading="lazy"

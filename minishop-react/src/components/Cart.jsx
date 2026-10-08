@@ -127,7 +127,7 @@ function Cart({ items, cartCount, onClose, onChangeQuantity, onRemove }) {
               hover:bg-[#454545] motion-reduce:transition-none
             "
           >
-            เลือกซื้อต่อ <span aria-hidden="true">↗</span>
+            เลือกซื้อต่อ
           </button>
         </section>
       </>
